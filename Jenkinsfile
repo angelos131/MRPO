@@ -14,7 +14,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Все еще доступна: ${env.MY_GLOBAL_VARIABLE}"
-                // Можно использовать напрямую в скриптах
                 sh 'echo $MY_GLOBAL_VARIABLE'
             }
         }
