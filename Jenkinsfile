@@ -1,25 +1,22 @@
 pipeline {
     agent any
+    environment {
+        MY_GLOBAL_VARIABLE = 'value'
+        ANOTHER_VAR = 'test'
+    }
     stages {
+        stage('Example') {
+            steps {
+                echo "Значение моей глобальной переменной: ${env.MY_GLOBAL_VARIABLE}"
+                echo "Другая переменная: ${ANOTHER_VAR}"
+            }
+        }
         stage('Build') {
             steps {
-                echo 'Сборка приложения...'
+                echo "Все еще доступна: ${env.MY_GLOBAL_VARIABLE}"
+                // Можно использовать напрямую в скриптах
+                sh 'echo $MY_GLOBAL_VARIABLE'
             }
-        }
-        stage('Test') {
-            steps {
-                echo 'Тестирование приложения...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Развёртывание приложения...'
-            }
-        }
-    }
-    post {
-        always {
-            deleteDir()
         }
     }
 }
